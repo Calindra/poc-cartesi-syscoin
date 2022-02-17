@@ -6,7 +6,6 @@ describe("GameHub", () => {
 
   describe('.joinGame()', () => {
 
-
     it("Should deny the same address to start 2 games at same time - A player", async () => {
       const [owner] = await ethers.getSigners();
       const GameHub = await ethers.getContractFactory("GameHub");
@@ -120,6 +119,23 @@ describe("GameHub", () => {
 
       const betTx = await gameHub.connect(addr2).bet(1, owner.address);
       await betTx.wait();
+    });
+
+    it("Should deny bets when the game isnt started", async () => {
+      const [owner] = await ethers.getSigners();
+      const gameHub = await Helper.createGameHub();
+      const error = await gameHub.connect(owner).bet(1, owner.address).catch(e => e);
+      expect(error.message).to.include('GameBetStatusError');
+    });
+
+    it("Should deny bets when the game is ended", async () => {
+      const [owner, addr1] = await ethers.getSigners();
+      const gameHub = await Helper.createStartedGame(owner, addr1);
+      const resTx = await gameHub.connect(owner).setGameResult(3, 1, owner.address);
+      await resTx.wait();
+
+      const error = await gameHub.connect(owner).bet(1, owner.address).catch(e => e);
+      expect(error.message).to.include('GameBetStatusError');
     });
 
     it("Should do a bet, set game results and get the prize", async () => {
@@ -318,10 +334,16 @@ describe("GameHub", () => {
 });
 
 class Helper {
-  static async createStartedGame(playerA: SignerWithAddress, playerB: SignerWithAddress) {
+
+  static async createGameHub() {
     const GameHub = await ethers.getContractFactory("GameHub");
     const gameHub = await GameHub.deploy();
     await gameHub.deployed();
+    return gameHub;
+  }
+
+  static async createStartedGame(playerA: SignerWithAddress, playerB: SignerWithAddress) {
+    const gameHub = await Helper.createGameHub();
 
     const joinTx = await gameHub.connect(playerA).joinGame();
     await joinTx.wait();

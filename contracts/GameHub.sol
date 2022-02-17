@@ -42,15 +42,6 @@ contract GameHub {
     mapping(address => Game) private playing;
     mapping(address => address) private playerB;
 
-    /**
-     * Um endereco pode estar apostando em apenas alguns jogos
-     * para apostar em mais jogos basta criar mais
-     * enderecos
-     */
-    mapping(address => Game) private bet1;
-    mapping(address => Game) private bet2;
-    mapping(address => Game) private bet3;
-
     PreGame private makingGame;
 
     address private owner;
@@ -94,6 +85,8 @@ contract GameHub {
      */
     function bet(uint bettype, address player) external payable {
         Game storage game = playing[player];
+        require(game.status != 9, "GameBetStatusError");
+        require(game.status != 0, "GameBetStatusError");
         if (bettype == 1) {
             game.aWins[msg.sender] += msg.value;
             game.totAWins += msg.value;

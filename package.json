@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon -e sol,ts --watch test --watch contracts --exec 'npx hardhat test'"
+    "test": "npx hardhat test",
+    "test:w": "nodemon -e sol,ts --watch test --watch contracts --exec 'npx hardhat test'"
   },
   "keywords": [],
   "author": "",
