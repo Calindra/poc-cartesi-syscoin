@@ -46,8 +46,11 @@ contract GameHub {
 
     address private owner;
 
+    bool active;
+
     constructor() {
         owner = msg.sender;
+        active = true;
     }
 
     function joinGame() external {
