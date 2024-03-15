@@ -4,6 +4,28 @@ import { Helper } from "../Helper";
 
 describe("GameHub", () => {
 
+    describe('.checkPodaMap()', () => {
+        it.only("Should deny the same address to start 2 games at same time - A player", async () => {
+            const [owner] = await ethers.getSigners();
+            const L2BatchInbox = await ethers.getContractFactory("L2BatchInbox");
+            const l2BatchInbox = await L2BatchInbox.deploy();
+            await l2BatchInbox.deployed();
+
+            l2BatchInbox.addToPodaMap("podaValue");
+
+            const GameHub = await ethers.getContractFactory("GameHub");
+            const gameHub = await GameHub.deploy();
+            await gameHub.deployed();
+
+            await gameHub.checkPodaMap(l2BatchInbox.address, "podaValue");
+
+            const e = await gameHub
+                .checkPodaMap(l2BatchInbox.address, "podaValue3")
+                .catch(e => e);
+            expect(e.message).to.include("NotPoda")
+        });
+    })
+
     describe('.joinGame()', () => {
 
         it("Should deny the same address to start 2 games at same time - A player", async () => {

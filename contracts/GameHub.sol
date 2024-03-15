@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.0;
 import "hardhat/console.sol";
+import { L2BatchInbox } from "./L2BatchInbox.sol";
 
 struct Game {
     uint endAt;
@@ -51,6 +52,13 @@ contract GameHub {
     constructor() {
         owner = msg.sender;
         active = true;
+    }
+
+    function checkPodaMap(address batchInboxAddress, string memory _str) view external {
+        L2BatchInbox l2bi = L2BatchInbox(batchInboxAddress);
+        bool ok = l2bi.podaMap(keccak256(abi.encodePacked(_str)));
+        require(ok, "NotPoda");
+        // delegated call to the InputBox
     }
 
     function joinGame() external {
