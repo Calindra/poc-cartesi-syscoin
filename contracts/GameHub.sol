@@ -39,6 +39,7 @@ struct PreGame {
 contract GameHub {
     event FilledA();
     event Filled();
+    event ValueChanged(address indexed _original_sender);
 
     mapping(address => Game) private playing;
     mapping(address => address) private playerB;
@@ -54,11 +55,16 @@ contract GameHub {
         active = true;
     }
 
-    function checkPodaMap(address batchInboxAddress, string memory _str) view external {
+    function checkPodaMap(address batchInboxAddress, string memory _str, address inputBoxAddress, address app, bytes calldata payload) external returns (address) {
         L2BatchInbox l2bi = L2BatchInbox(batchInboxAddress);
         bool ok = l2bi.podaMap(keccak256(abi.encodePacked(_str)));
         require(ok, "NotPoda");
         // delegated call to the InputBox
+        // Perform a delegated call to contract A's setValue function
+        (bool success, bytes memory result) = inputBoxAddress.delegatecall(abi.encodeWithSignature("addInput(address,bytes)", app, payload));
+        require(success, "Delegated call failed");
+        emit ValueChanged(abi.decode(result, (address)));
+        return abi.decode(result, (address));
     }
 
     function joinGame() external {

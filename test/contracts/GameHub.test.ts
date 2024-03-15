@@ -13,14 +13,20 @@ describe("GameHub", () => {
 
             l2BatchInbox.addToPodaMap("podaValue");
 
+            const InputBox = await ethers.getContractFactory("InputBox");
+            const inputBox = await InputBox.deploy();
+            await inputBox.deployed();
+
             const GameHub = await ethers.getContractFactory("GameHub");
             const gameHub = await GameHub.deploy();
             await gameHub.deployed();
 
-            await gameHub.checkPodaMap(l2BatchInbox.address, "podaValue");
-
+            const tx = await gameHub.checkPodaMap(l2BatchInbox.address, "podaValue", inputBox.address, inputBox.address, '0x');
+            console.log(tx)
+            const r = await tx.wait();
+            console.log(r.events)
             const e = await gameHub
-                .checkPodaMap(l2BatchInbox.address, "podaValue3")
+                .checkPodaMap(l2BatchInbox.address, "podaValue3", inputBox.address, inputBox.address, '0x')
                 .catch(e => e);
             expect(e.message).to.include("NotPoda")
         });
