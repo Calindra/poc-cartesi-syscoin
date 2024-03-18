@@ -6,6 +6,13 @@ interface PodaContractInterface {
     function podaMap(bytes32 _key) external view returns (bool);
 }
 
+interface InputBoxInterface {
+    function addInput(
+        address app,
+        bytes calldata payload
+    ) external returns (bytes32);
+}
+
 /**
  * @title DAContract
  * @dev Store & retrieve value in a variable
@@ -13,9 +20,15 @@ interface PodaContractInterface {
 contract DAContract {
     // event InputAddedDebug(address indexed app, uint256 indexed index, bytes input);
 
-    function checkPodaMap(
-        address batchInboxAddress,
-        address inputBoxAddress,
+    address public batchInboxAddress;
+    address public inputBoxAddress;
+
+    constructor(address _batchInboxAddress, address _inputBoxAddress) {
+        batchInboxAddress = _batchInboxAddress;
+        inputBoxAddress = _inputBoxAddress;
+    }
+
+    function sendDataHash(
         address app,
         bytes32 podaHash
     ) external returns (address) {
@@ -26,19 +39,21 @@ contract DAContract {
         string memory podaHashStr = bytes32ToHex(podaHash);
         // Concatenate the strings into a JSON-like structure
         string memory json = string(
-            abi.encodePacked('{"data_push":{"hash":"', podaHashStr, '"}}')
+            abi.encodePacked('{"data_push":{"hash":"', podaHashStr, '","provider":"Syscoin"}}')
         );
 
         // Convert the string to bytes
         bytes memory payload = bytes(json);
         // delegated call to the InputBox
         // Perform a delegated call to contract A's setValue function
-        (bool success, bytes memory result) = inputBoxAddress.delegatecall(
-            abi.encodeWithSignature("addInput(address,bytes)", app, payload)
-        );
-        require(success, "Delegated call failed");
+        InputBoxInterface inputBox = InputBoxInterface(inputBoxAddress);
+        inputBox.addInput(app, payload);
+        // (bool success, bytes memory result) = inputBoxAddress.delegatecall(
+        //     abi.encodeWithSignature("addInput(address,bytes)", app, payload)
+        // );
+        // require(success, "Delegated call failed");
         // emit InputAddedDebug(app, 0, payload);
-        return abi.decode(result, (address));
+        return msg.sender;
     }
 
     function bytes32ToHex(bytes32 data) internal pure returns (string memory) {

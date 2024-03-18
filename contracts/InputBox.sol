@@ -9,8 +9,8 @@ contract InputBox {
     function addInput(
         address app,
         bytes calldata payload
-    ) external returns (address) {
+    ) external returns (bytes32) {
         emit InputAdded(app, 0, payload);
-        return msg.sender;
+        return keccak256(payload);
     }
 }
