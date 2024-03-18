@@ -5,10 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "npx hardhat test",
-    "test:w": "nodemon -e sol,ts --watch test --watch contracts --exec 'npx hardhat test'"
+    "test:w": "nodemon -e sol,ts --watch test --watch contracts --exec 'npx hardhat test'",
+    "codegen": "wagmi generate"
   },
   "keywords": [],
   "author": "",
+  "engines": {
+    "node": ">=20"
+  },
   "license": "ISC",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.0",
@@ -21,6 +25,7 @@
     "@types/node": "^12.0.0",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
+    "abitype": "^1.0.2",
     "chai": "^4.2.0",
     "dotenv": "^10.0.0",
     "eslint": "^7.29.0",
@@ -42,5 +47,12 @@
     "ts-node": "^10.1.0",
     "typechain": "^5.1.2",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@cartesi/rollups": "^1.2.0",
+    "@eth-optimism/contracts": "^0.6.0",
+    "@sunodo/wagmi-plugin-hardhat-deploy": "^0.3.0",
+    "@wagmi/cli": "^2.1.2",
+    "viem": "^2.8.11"
   }
 }
