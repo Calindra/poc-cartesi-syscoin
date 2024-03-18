@@ -13,6 +13,10 @@ describe("DAContract", () => {
             await l2BatchInbox.deployed();
 
             l2BatchInbox.addToPodaMap("podaValue");
+            // hash for "podaValue"
+            const podaHash = '0xe1384435bca25dc100272f0b8bb6088489db19923c50639565ba564ccc13b85f'
+            // wrong hash for "podaValue"
+            const podaHashFake = '0xe1384435bca25dc100272f0b8bb6088489db19923c50639565ba564ccc13b85e'
 
             const InputBox = await ethers.getContractFactory("InputBox");
             const inputBox = await InputBox.deploy();
@@ -21,14 +25,14 @@ describe("DAContract", () => {
             const DAContract = await ethers.getContractFactory("DAContract");
             const daContract = await DAContract.deploy();
             await daContract.deployed();
-                            //0xe1384435bca25dc100272f0b8bb6088489db19923c50639565ba564ccc13b85f
-            const podaHash = '0xe1384435bca25dc100272f0b8bb6088489db19923c50639565ba564ccc13b85f'
-            const tx = await daContract.checkPodaMap(l2BatchInbox.address, "podaValue", inputBox.address, inputBox.address, '0x', podaHash);
+
+            const tx = await daContract.checkPodaMap(l2BatchInbox.address, inputBox.address, inputBox.address, podaHash);
             console.log(tx)
             const r = await tx.wait();
-            console.log(r.events)
+            console.log('events', r.events)
+
             const e = await daContract
-                .checkPodaMap(l2BatchInbox.address, "podaValue3", inputBox.address, inputBox.address, '0x', podaHash)
+                .checkPodaMap(l2BatchInbox.address, inputBox.address, inputBox.address, podaHashFake)
                 .catch(e => e);
             console.log(e.message)
             expect(e.message).to.include("Data not found")

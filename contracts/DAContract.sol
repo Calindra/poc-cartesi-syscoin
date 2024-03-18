@@ -11,37 +11,33 @@ interface PodaContractInterface {
  * @dev Store & retrieve value in a variable
  */
 contract DAContract {
-    event InputAdded(address indexed app, uint256 indexed index, bytes input);
-    // event ValueChanged(address indexed _original_sender, );
-    //
+    // event InputAddedDebug(address indexed app, uint256 indexed index, bytes input);
+
     function checkPodaMap(
         address batchInboxAddress,
-        string memory _str,
         address inputBoxAddress,
         address app,
-        bytes calldata payload,
         bytes32 podaHash
     ) external returns (address) {
         PodaContractInterface l2bi = PodaContractInterface(batchInboxAddress);
-        bytes32 poda = keccak256(abi.encodePacked(_str));
-        bool ok = l2bi.podaMap(poda);
+        bool ok = l2bi.podaMap(podaHash);
         require(ok, "Data not found");
 
         string memory podaHashStr = bytes32ToHex(podaHash);
         // Concatenate the strings into a JSON-like structure
         string memory json = string(
-            abi.encodePacked("{\"data_push\":{\"hash\":\"", podaHashStr, "\"}}")
+            abi.encodePacked('{"data_push":{"hash":"', podaHashStr, '"}}')
         );
 
         // Convert the string to bytes
-        bytes memory jsonBytes = bytes(json);
+        bytes memory payload = bytes(json);
         // delegated call to the InputBox
         // Perform a delegated call to contract A's setValue function
         (bool success, bytes memory result) = inputBoxAddress.delegatecall(
             abi.encodeWithSignature("addInput(address,bytes)", app, payload)
         );
         require(success, "Delegated call failed");
-        emit InputAdded(app, 0, jsonBytes);
+        // emit InputAddedDebug(app, 0, payload);
         return abi.decode(result, (address));
     }
 

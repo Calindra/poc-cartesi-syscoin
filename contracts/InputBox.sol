@@ -5,10 +5,12 @@ pragma solidity ^0.8.0;
 
 
 contract InputBox {
+    event InputAdded(address indexed app, uint256 indexed index, bytes input);
     function addInput(
         address app,
         bytes calldata payload
     ) external returns (address) {
+        emit InputAdded(app, 0, payload);
         return msg.sender;
     }
 }
