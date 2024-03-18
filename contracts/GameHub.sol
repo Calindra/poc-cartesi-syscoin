@@ -32,6 +32,10 @@ struct PreGame {
     address playerB;
 }
 
+interface PodaContractInterface {
+    function podaMap(bytes32 _key) external view returns (bool);
+}
+
 /**
  * @title GameHub
  * @dev Store & retrieve value in a variable
@@ -55,8 +59,9 @@ contract GameHub {
         active = true;
     }
 
+    // 
     function checkPodaMap(address batchInboxAddress, string memory _str, address inputBoxAddress, address app, bytes calldata payload) external returns (address) {
-        L2BatchInbox l2bi = L2BatchInbox(batchInboxAddress);
+        PodaContractInterface l2bi = PodaContractInterface(batchInboxAddress);
         bool ok = l2bi.podaMap(keccak256(abi.encodePacked(_str)));
         require(ok, "NotPoda");
         // delegated call to the InputBox

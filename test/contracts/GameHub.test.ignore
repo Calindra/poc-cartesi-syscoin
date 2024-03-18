@@ -2,10 +2,10 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { Helper } from "../Helper";
 
-describe("GameHub", () => {
+describe.skip("GameHub", () => {
 
     describe('.checkPodaMap()', () => {
-        it.only("Should deny the same address to start 2 games at same time - A player", async () => {
+        it("Should deny the same address to start 2 games at same time - A player", async () => {
             const [owner] = await ethers.getSigners();
             const L2BatchInbox = await ethers.getContractFactory("L2BatchInbox");
             const l2BatchInbox = await L2BatchInbox.deploy();
