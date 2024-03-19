@@ -8,7 +8,7 @@ describe("DAContract", () => {
       const l2BatchInbox = await L2BatchInbox.deploy();
       await l2BatchInbox.deployed();
 
-      l2BatchInbox.addToPodaMap("podaValue");
+      await l2BatchInbox.addToPodaMap("podaValue");
 
       // hash for "podaValue"
       const podaHash =
