@@ -28,6 +28,14 @@ contract DAContract {
         inputBoxAddress = _inputBoxAddress;
     }
 
+    function setBatchInboxAddress(address _batchInboxAddress) external {
+        batchInboxAddress = _batchInboxAddress;
+    }
+
+    function setInputBoxAddress(address _inputBoxAddress) external {
+        inputBoxAddress = _inputBoxAddress;
+    }
+
     function sendDataHash(
         address app,
         bytes32 podaHash
@@ -39,7 +47,11 @@ contract DAContract {
         string memory podaHashStr = bytes32ToHex(podaHash);
         // Concatenate the strings into a JSON-like structure
         string memory json = string(
-            abi.encodePacked('{"data_push":{"hash":"', podaHashStr, '","provider":"Syscoin"}}')
+            abi.encodePacked(
+                '{"data_push":{"hash":"',
+                podaHashStr,
+                '","provider":"Syscoin"}}'
+            )
         );
 
         // Convert the string to bytes

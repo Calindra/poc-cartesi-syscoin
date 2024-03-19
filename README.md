@@ -39,6 +39,10 @@ In this project, copy the .env.example file to a file named .env, and then edit 
 hardhat run --network ropsten scripts/sample-script.ts
 ```
 
+```shell
+npx hardhat run --network rollux_testnet scripts/deploy.ts
+```
+
 Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
 
 ```shell
