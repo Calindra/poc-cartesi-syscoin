@@ -43,6 +43,16 @@ hardhat run --network ropsten scripts/sample-script.ts
 npx hardhat run --network rollux_testnet scripts/deploy.ts
 ```
 
+Output:
+
+```shell
+Downloading compiler 0.8.4
+Generating typings for: 3 artifacts in dir: typechain for target: ethers-v5
+Successfully generated 9 typings!
+Compiled 1 Solidity file successfully (evm target: istanbul).
+DAContract deployed to: 0x9D3DA37d36BB0B825CD319ed129c2872b893f538
+```
+
 Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
 
 ```shell

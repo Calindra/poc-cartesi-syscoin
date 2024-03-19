@@ -24,7 +24,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 });
 
 const networkConfig = (chain: Chain): HttpNetworkUserConfig => {
-  let url = process.env.RPC_URL || (chain.rpcUrls.public.http as any).at(0);
+  let url = process.env.RPC_URL || chain.rpcUrls.default.http[0];
 
   // support for infura and alchemy URLs through env variables
   if (process.env.INFURA_ID && chain.rpcUrls.infura?.http) {
