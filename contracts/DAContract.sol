@@ -60,10 +60,6 @@ contract DAContract {
         // Perform a delegated call to contract A's setValue function
         InputBoxInterface inputBox = InputBoxInterface(inputBoxAddress);
         inputBox.addInput(app, payload);
-        // (bool success, bytes memory result) = inputBoxAddress.delegatecall(
-        //     abi.encodeWithSignature("addInput(address,bytes)", app, payload)
-        // );
-        // require(success, "Delegated call failed");
         // emit InputAddedDebug(app, 0, payload);
         return msg.sender;
     }
