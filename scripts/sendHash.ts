@@ -16,7 +16,8 @@ async function main() {
   // We get the contract to deploy
   const DAContract = await ethers.getContractFactory("DAContract");
 
-  const hash = `0x3f57aba5d95da7d40bcd9f19f1e559851cd9d4f5f537c7226e7e11dab804db9e`
+  // const hash = `0x3f57aba5d95da7d40bcd9f19f1e559851cd9d4f5f537c7226e7e11dab804db9e`
+  const hash =    `0x06310294ee0af7f1ae4c8e19fa509264565fa82ba8c82a7a9074b2abf12a15d9`
   const dappAddress = `0x71ab24ee3ddB97Dc01A161EdF64c8d51102b0cd3`
   // const daContractAddress = `0x9D3DA37d36BB0B825CD319ed129c2872b893f538`
   const daContractAddress = '0x3abBB0D6ad848d64c8956edC9Bf6f18aC22E1485' // with events
