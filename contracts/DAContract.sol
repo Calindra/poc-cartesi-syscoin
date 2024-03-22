@@ -42,6 +42,7 @@ contract DAContract {
     ) external returns (address) {
         emit StartSendDataHashCall(batchInboxAddress, inputBoxAddress, app, podaHash);
         PodaContractInterface l2bi = PodaContractInterface(batchInboxAddress);
+        // hash = 0x06310294ee0af7f1ae4c8e19fa509264565fa82ba8c82a7a9074b2abf12a15d9
         bool ok = l2bi.podaMap(podaHash);
         require(ok, "Data not found");
 

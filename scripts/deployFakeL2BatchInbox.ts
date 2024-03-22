@@ -16,7 +16,7 @@ async function main() {
   // We get the contract to deploy
   const L2BatchInbox = await ethers.getContractFactory("L2BatchInbox");
 
-  const l2BatchInbox = await L2BatchInbox.deploy();
+  const l2BatchInbox = await L2BatchInbox.deploy('0x3F4bCbD178399aEA9cc0f33ca952F91E1ACB31d0');
 
   await l2BatchInbox.deployed();
 
