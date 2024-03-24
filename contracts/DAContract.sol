@@ -19,7 +19,7 @@ interface InputBoxInterface {
  */
 contract DAContract {
     // event InputAddedDebug(address indexed app, uint256 indexed index, bytes input);
-
+    event StartSendDataHashCall(address batchInboxAddress, address inputBoxAddress, address app, bytes32 podaHash);
     address public batchInboxAddress;
     address public inputBoxAddress;
 
@@ -40,7 +40,9 @@ contract DAContract {
         address app,
         bytes32 podaHash
     ) external returns (address) {
+        emit StartSendDataHashCall(batchInboxAddress, inputBoxAddress, app, podaHash);
         PodaContractInterface l2bi = PodaContractInterface(batchInboxAddress);
+        // hash = 0x06310294ee0af7f1ae4c8e19fa509264565fa82ba8c82a7a9074b2abf12a15d9
         bool ok = l2bi.podaMap(podaHash);
         require(ok, "Data not found");
 

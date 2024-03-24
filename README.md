@@ -53,6 +53,13 @@ Compiled 1 Solidity file successfully (evm target: istanbul).
 DAContract deployed to: 0x9D3DA37d36BB0B825CD319ed129c2872b893f538
 ```
 
+```shell
+npx hardhat run --network rollux_testnet scripts/deployFakeL2BatchInbox.ts
+
+No need to generate any newer typings.
+L2BatchInbox deployed to: 0x687bB6c57915aa2529EfC7D2a26668855e022fAE
+```
+
 Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
 
 ```shell
