@@ -66,12 +66,13 @@ Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_
 npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
 ```
 
-# Performance optimizations
+## Performance optimizations
 
 For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
 
-# Deployed
+## Deployed
 
+```shell
 npm run deploy:L2BatchInbox
 
 > learn-hardhat@1.0.0 deploy:L2BatchInbox
@@ -79,3 +80,11 @@ npm run deploy:L2BatchInbox
 
 No need to generate any newer typings.
 L2BatchInbox deployed to: 0xD5bFeBDce5c91413E41cc7B24C8402c59A344f7c
+```
+
+```shell
+npm run sendSyscoinTestnet
+```
+
+L1 transaction:
+[tx](https://tanenbaum.io/tx/0x99f041dc05b9d882f679b8ad8ed14b4916dd6b0fe4e19511d0c9c621557dfc47)

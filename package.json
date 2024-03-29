@@ -7,6 +7,7 @@
     "test": "npx hardhat test",
     "selector": "viem \"appendSequencerBatchToL2(address,bytes,bytes32[])\"",
     "deploy:L2BatchInbox": "hardhat run --network rollux_testnet scripts/deployL2BatchInbox.ts",
+    "sendHash": "hardhat run --network rollux_testnet scripts/sendHash.ts",
     "sendSyscoinTestnet": "hardhat run --network syscoin_testnet scripts/sendSyscoinTestnet.ts",
     "test:w": "nodemon -e sol,ts --watch test --watch contracts --exec 'npx hardhat test'",
     "codegen": "wagmi generate"

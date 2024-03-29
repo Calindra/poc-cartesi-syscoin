@@ -17,7 +17,8 @@ async function main() {
   const DAContract = await ethers.getContractFactory("DAContract");
 
   // const hash = `0x3f57aba5d95da7d40bcd9f19f1e559851cd9d4f5f537c7226e7e11dab804db9e`
-  const hash =    `0x06310294ee0af7f1ae4c8e19fa509264565fa82ba8c82a7a9074b2abf12a15d9`
+  // const hash = `0x06310294ee0af7f1ae4c8e19fa509264565fa82ba8c82a7a9074b2abf12a15d9`
+  const hash =    '0xeae339162341eb719e652bd397df8666efe952e2f06dfd42cde5a58b083fab2d'
   // const hash = '0x2fd8044600000000000000000000000071ab24ee3ddb97dc01a161edf64c8d51102b0cd306310294ee0af7f1ae4c8e19fa509264565fa82ba8c82a7a9074b2abf12a15d9'
   const dappAddress = `0x71ab24ee3ddB97Dc01A161EdF64c8d51102b0cd3`
   // const daContractAddress = `0x9D3DA37d36BB0B825CD319ed129c2872b893f538`
@@ -33,8 +34,9 @@ async function main() {
   })
 
   // const fakeL2BatchInboxAddress = `0x687bB6c57915aa2529EfC7D2a26668855e022fAE`
-  const correctL2BatchInboxAddress = '0x4200000000000000000000000000000000000010'
-  const changeAddressTx = await contractInstance.setBatchInboxAddress(correctL2BatchInboxAddress, options)
+  // const correctL2BatchInboxAddress = '0x4200000000000000000000000000000000000010'
+  const clonedL2BatchInboxAddress = '0xD5bFeBDce5c91413E41cc7B24C8402c59A344f7c'
+  const changeAddressTx = await contractInstance.setBatchInboxAddress(clonedL2BatchInboxAddress, options)
   await changeAddressTx.wait()
   console.log('address changed')
   const res = await contractInstance.sendDataHash(dappAddress, hash, options)
