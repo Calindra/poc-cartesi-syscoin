@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "npx hardhat test",
-    "deploy": "hardhat run --network rollux_testnet scripts/deployFakeL2BatchInbox.ts",
+    "selector": "viem \"appendSequencerBatchToL2(address,bytes,bytes32[])\"",
+    "deploy:L2BatchInbox": "hardhat run --network rollux_testnet scripts/deployL2BatchInbox.ts",
+    "sendSyscoinTestnet": "hardhat run --network syscoin_testnet scripts/sendSyscoinTestnet.ts",
     "test:w": "nodemon -e sol,ts --watch test --watch contracts --exec 'npx hardhat test'",
     "codegen": "wagmi generate"
   },
@@ -57,7 +59,7 @@
     "@rari-capital/solmate": "^6.4.0",
     "@sunodo/wagmi-plugin-hardhat-deploy": "^0.3.0",
     "@wagmi/cli": "^2.1.2",
-    "viem": "^2.8.12"
+    "viem": "^2.8.13"
   },
   "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589"
 }

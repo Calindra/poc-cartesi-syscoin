@@ -69,3 +69,13 @@ npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
 # Performance optimizations
 
 For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+
+# Deployed
+
+npm run deploy:L2BatchInbox
+
+> learn-hardhat@1.0.0 deploy:L2BatchInbox
+> hardhat run --network rollux_testnet scripts/deployL2BatchInbox.ts
+
+No need to generate any newer typings.
+L2BatchInbox deployed to: 0xD5bFeBDce5c91413E41cc7B24C8402c59A344f7c
