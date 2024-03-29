@@ -8,7 +8,7 @@ import "hardhat-gas-reporter";
 import "solidity-coverage";
 import { Chain } from "viem";
 import { HttpNetworkUserConfig } from "hardhat/types";
-import {rolluxTestnet} from "viem/chains";
+import {rolluxTestnet, syscoinTestnet} from "viem/chains";
 dotenv.config();
 // read MNEMONIC from env variable
 let mnemonic = process.env.MNEMONIC || 'test test test test test test test test test test test junk';
@@ -52,6 +52,7 @@ const config: HardhatUserConfig = {
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     rollux_testnet: networkConfig(rolluxTestnet),
+    syscoin_testnet: networkConfig(syscoinTestnet),
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
